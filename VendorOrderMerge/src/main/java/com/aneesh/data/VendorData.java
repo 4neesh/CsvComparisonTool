@@ -13,6 +13,9 @@ public class VendorData {
 		this.placeId = placeId;
 		this.placeName = placeName;
 		this.latitude = latitude;
+		
+		if(unlocode != null) {
+		unlocode = unlocode.replaceAll(" ",  "");}
 		this.unlocode = unlocode;
 	}
 

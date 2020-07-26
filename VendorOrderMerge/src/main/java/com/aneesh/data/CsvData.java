@@ -23,7 +23,7 @@ public class CsvData {
 		this.name = name;
 		this.isActive = isActive;
 		this.createdAt = createdAt;
-		this.updatedAt = updatedAt;
+		this.updatedAt = updatedAt;		
 		this.unlocode = unlocode;
 		this.placeIdentifier = placeIdentifier;
 		this.vendorPlaceId = vendorPlaceId;
