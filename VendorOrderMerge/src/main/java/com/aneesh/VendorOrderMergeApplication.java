@@ -19,8 +19,8 @@ public class VendorOrderMergeApplication {
 		
 		//read all data in from csvs
 		Map<String, VendorData> vendorData = new CsvLoadService<VendorData>().loadCsv("../VendorOrderMerge/src/main/resources/csv_files/vendor-place.csv");
-		//Map<String, CsvData> outputData = new CsvLoadService<CsvData>().loadOutputCsv("../VendorOrderMerge/src/main/resources/csv_files/output-place.csv");
 		Map<String, CsvData> companyData = new CsvLoadService<CsvData>().loadCompanyCsv("../VendorOrderMerge/src/main/resources/csv_files/company-place.csv");
+		
 		
 		CsvWriteService outputCsv = new CsvWriteService();
 		
@@ -28,6 +28,7 @@ public class VendorOrderMergeApplication {
 			outputCsv.append(currentCompanyRecord);
 		}
 		
+		outputCsv.closeWriters();
 		
 	}
 

@@ -7,11 +7,25 @@ import java.util.Date;
 import org.springframework.stereotype.Service;
 
 import com.aneesh.data.CsvData;
+import com.opencsv.CSVWriter;
 
 @Service
 public class CsvWriteService {
 
+	private static String filename = "../VendorOrderMerge/src/main/resources/csv_files/output-place_" + new Date().getDate() +".csv";
 	FileWriter newCsvFile;
+	CSVWriter csvWriter;
+	{
+
+	try {
+		newCsvFile = new FileWriter(filename);
+		csvWriter = new CSVWriter(newCsvFile);
+
+	} 
+	catch (IOException e) {
+		e.printStackTrace();
+		}
+	}
 	
 	public CsvWriteService() {
 
@@ -25,57 +39,25 @@ public class CsvWriteService {
 	}
 	
 	public void createNewOutputCsv() throws IOException {
-		String filename = "../VendorOrderMerge/src/main/resources/csv_files/output-place_" + new Date().getDate() +".csv";
 		
-		try {
-		newCsvFile = new FileWriter(filename);
-		newCsvFile.append("id");
-		newCsvFile.append(",");
-		newCsvFile.append("name");
-		newCsvFile.append(",");
-		newCsvFile.append("is_active");
-		newCsvFile.append(",");
-		newCsvFile.append("created_at");
-		newCsvFile.append(",");
-		newCsvFile.append("updated_at");
-		newCsvFile.append(",");
-		newCsvFile.append("UNLOCODE");
-		newCsvFile.append(",");
-		newCsvFile.append("place_identity_id");
-		newCsvFile.append(",");		
-		newCsvFile.append("vendor_place_id");
+		String[] header = {"id", "name", "is_active", "created_at", "updated_at", "UNLOCODE", "place_identity_id", "vendor_place_id"};
 		
-		}
-		catch(IOException e) {
-
-			e.printStackTrace();
-		}
+		csvWriter.writeNext(header);
 
 	}
 	
 	public void append(CsvData csvData) {
-		try {
-		newCsvFile.append(csvData.getId());
-		newCsvFile.append(",");
-		newCsvFile.append(csvData.getName());
-		newCsvFile.append(",");
-		newCsvFile.append(csvData.getIsActive());
-		newCsvFile.append(",");
-		newCsvFile.append(csvData.getCreatedAt());
-		newCsvFile.append(",");
-		newCsvFile.append(csvData.getUpdatedAt());
-		newCsvFile.append(",");
-		newCsvFile.append(csvData.getUnlocode());
-		newCsvFile.append(",");
-		newCsvFile.append(csvData.getPlaceIdentifier());
-		newCsvFile.append(",");		
-		newCsvFile.append(csvData.getVendorPlaceId());
-		}
-		catch(IOException e) {
-			e.printStackTrace();
-		}
+		String[] lineToWriter = {csvData.getId(), csvData.getName(),
+								csvData.getIsActive(), csvData.getCreatedAt(),
+								csvData.getUpdatedAt(), csvData.getUnlocode(),
+								csvData.getPlaceIdentifier(), csvData.getVendorPlaceId()};
+		csvWriter.writeNext(lineToWriter);
 		
 	}
 	
+	public void closeWriters() throws IOException {
+		csvWriter.close();
+		newCsvFile.close();
+	}
 	
 }
