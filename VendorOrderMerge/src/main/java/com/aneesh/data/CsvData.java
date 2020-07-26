@@ -11,11 +11,9 @@ public class CsvData {
 	private String unlocode;
 	private String placeIdentifier;
 	private String vendorPlaceId;
+	private static String highestId = "0";
 	
-	public CsvData() {
-		
-	}
-	
+
 	public CsvData(String id, String name, String isActive, String createdAt, String updatedAt, String unlocode,
 			String placeIdentifier, String vendorPlaceId) {
 		super();
@@ -27,6 +25,23 @@ public class CsvData {
 		this.unlocode = unlocode;
 		this.placeIdentifier = placeIdentifier;
 		this.vendorPlaceId = vendorPlaceId;
+		
+		updateNextId(id);
+	}
+	
+	public void updateNextId(String id) {
+		int idAsInt = Integer.parseInt(id);
+		if(idAsInt > Integer.parseInt(highestId)) {
+			highestId = Integer.toString(idAsInt);
+		}
+	}
+	
+	public String incrementAndGetNextId() {
+		
+		int currentNextId = Integer.parseInt(highestId);
+		currentNextId++;
+		highestId = Integer.toString(currentNextId);
+		return highestId;
 	}
 	public String getId() {
 		return id;

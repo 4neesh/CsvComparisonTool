@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import com.aneesh.data.CsvData;
 import com.aneesh.data.VendorData;
 
-@Service
+
 public class CsvLoadService<T> {
 	
 	private static final String DELIMITER = ",";

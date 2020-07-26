@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.aneesh.data.CsvData;
 import com.opencsv.CSVWriter;
 
-@Service
+
 public class CsvWriteService {
 
 	private static String filename = "../VendorOrderMerge/src/main/resources/csv_files/output-place_" + new Date().getDate() +".csv";
@@ -37,6 +37,8 @@ public class CsvWriteService {
 		}
 
 	}
+	
+	//get file name method and pass into the update csv class and method on the main thread application class.
 	
 	public void createNewOutputCsv() throws IOException {
 		
