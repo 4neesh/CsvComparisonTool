@@ -106,7 +106,7 @@ public Map<String, CsvData> loadCompanyCsv(String filename) throws IOException {
 										properties[6],
 										properties[7]
 										);
-			vd.put(properties[5], record);
+			vd.put(properties[0], record);
 			
 		}
 	}

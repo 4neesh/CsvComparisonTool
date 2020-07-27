@@ -68,6 +68,13 @@ public class CsvData {
 		return vendorPlaceId;
 	}
 
+	public void markAsInactive() {
+		this.isActive = "f";
+	}
+	public void setIsActive(String isActive) {
+		this.isActive = isActive;
+	}
+
 	@Override
 	public String toString() {
 		return "CsvData [id=" + id + ", name=" + name + ", isActive=" + isActive + ", createdAt=" + createdAt
