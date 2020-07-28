@@ -1,42 +1,27 @@
 package com.aneesh;
 
+
+import com.aneesh.csv.CsvLoadService;
+import com.aneesh.csv.CsvWriteService;
+import com.aneesh.csv.FileLoadService;
+import com.aneesh.csv.FileWriteService;
+import com.aneesh.data.CompanyData;
+import com.aneesh.data.VendorData;
+import org.springframework.boot.CommandLineRunner;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.task.configuration.EnableTask;
-import org.springframework.context.annotation.Bean;
-
-import com.aneesh.csv.*;
-import com.aneesh.data.*;
-
-@SpringBootApplication
-@EnableTask
-public class VendorOrderMergeApplication {
-
-    @Bean
-    public Comparison createComparison() {
-        return new Comparison();
-    }
-
-    public static void main(String[] args) {
-        SpringApplication.run(VendorOrderMergeApplication.class, args);
-    }
-
-}
-
-class Comparison implements CommandLineRunner {
+public class CsvBuilder implements CommandLineRunner {
 
     public Map<String, VendorData> vendorData;
     public Map<String, CompanyData> companyData;
 
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
 
         FileLoadService csvLoadService = new CsvLoadService();
 

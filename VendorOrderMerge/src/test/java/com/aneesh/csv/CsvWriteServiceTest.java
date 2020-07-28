@@ -3,8 +3,6 @@ package com.aneesh.csv;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.FileNotFoundException;
-
 import static org.junit.Assert.*;
 
 public class CsvWriteServiceTest {
@@ -31,17 +29,6 @@ public class CsvWriteServiceTest {
 
     }
 
-    @Test
-    public void createNewOutputFileHeadersCheck() {
-
-        
-
-    }
-
-    @Test
-    public void appendAddsNewRecordToCsv() {
 
 
-
-    }
 }

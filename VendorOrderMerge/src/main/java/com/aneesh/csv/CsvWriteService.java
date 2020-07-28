@@ -44,6 +44,7 @@ public class CsvWriteService implements FileWriteService {
                 csvData.getIsActive(), csvData.getCreatedAt(),
                 csvData.getUpdatedAt(), csvData.getUnlocode(),
                 csvData.getPlaceIdentifier(), csvData.getVendorPlaceId()};
+
         csvWriter.writeNext(lineToWriter);
 
     }
