@@ -1,6 +1,6 @@
 package com.aneesh.csv;
 
-import com.aneesh.CsvBuilder;
+import com.aneesh.main.CsvBuilder;
 import com.aneesh.data.CompanyData;
 import org.junit.Test;
 
