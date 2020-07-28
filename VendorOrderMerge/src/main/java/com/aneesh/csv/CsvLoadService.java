@@ -6,115 +6,99 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.stereotype.Service;
-
-import com.aneesh.data.CsvData;
+import com.aneesh.data.CompanyData;
 import com.aneesh.data.VendorData;
 
 
-public class CsvLoadService<T> {
-	
-	private static final String DELIMITER = ",";
-	private BufferedReader br;
-	public Map<String, VendorData> loadCsv(String filename) throws IOException {
-		
-		br = new BufferedReader(new FileReader(filename));
-		Map<String, VendorData> vd = new HashMap<>();
-		try {
-			String line;
-			br.readLine();
-		
-			while((line = br.readLine()) != null) {
-				
-				String[] values = line.split(DELIMITER, -1);
-				String[] properties = new String[4];
+public class CsvLoadService implements FileLoadService {
 
-				for(int i = 0; i<properties.length; i++) {
-					properties[i] = values[i];
-				}
-				VendorData newV = new VendorData(properties[0],properties[1],properties[2],properties[3]);
-				vd.put(properties[0], newV);
-			}
-		}
-		catch (Exception e){
-			br.close();
-		}
-		return vd;
-	}
-	
-public Map<String, CsvData> loadOutputCsv(String filename) throws IOException {
-		
-		br = new BufferedReader(new FileReader(filename));
-		Map<String, CsvData> vd = new HashMap<>();
-		try {
-			String line;
-			br.readLine();
-		
-			while((line = br.readLine()) != null) {
-				
-				String[] values = line.split(DELIMITER, -1);
-				
-				String[] properties = new String[8];
+    private static final String DELIMITER = ",";
+    private BufferedReader br;
+    private Map<String, VendorData> vendorMap;
+    private Map<String, CompanyData> companyMap;
 
-				for(int i = 0; i<values.length; i++) {
-					properties[i] = values[i];
-				}
-								
-				CsvData record = new CsvData(properties[0],
-											properties[1],
-											properties[2],
-											properties[3],
-											properties[4],
-											properties[5],
-											properties[6],
-											properties[7]
-											);
-				vd.put(properties[0], record);
-				
-			}
-		}
-		catch (Exception e){
-			br.close();
-		}
-		return vd;
-	}
+    String vendorCsv = "../VendorOrderMerge/src/main/resources/csv_files/vendor-place.csv";
+    String companyCsv = "../VendorOrderMerge/src/main/resources/csv_files/company-place.csv";
 
-public Map<String, CsvData> loadCompanyCsv(String filename) throws IOException {
-	
-	br = new BufferedReader(new FileReader(filename));
-	Map<String, CsvData> vd = new HashMap<>();
-	try {
-		String line;
-		br.readLine();
-	
-		while((line = br.readLine()) != null) {
-						
-			String[] values = line.split(DELIMITER, -1);
-			
-			String[] properties = new String[8];
-		
-			for(int i = 0; i<values.length; i++) {
-				properties[i] = values[i];
-			}
-						
-			CsvData record = new CsvData(properties[0],
-										properties[1],
-										properties[2],
-										properties[3],
-										properties[4],
-										properties[5],
-										properties[6],
-										properties[7]
-										);
-			vd.put(properties[0], record);
-			
-		}
-	}
-	catch (Exception e){
-		br.close();
-	}
-	return vd;
-}
+//	@Value("${company-csv-filename}")
+//	private String companyCsv;
+//	
+//	@Value("${vendor-csv-filename}")
+//	private String vendorCsv;
 
-	
+    public Map<String, VendorData> loadVendor() {
+
+
+        vendorMap = new HashMap<>();
+        try {
+            br = new BufferedReader(new FileReader(vendorCsv));
+            String line;
+            br.readLine();
+
+            while ((line = br.readLine()) != null) {
+
+                String[] values = line.split(DELIMITER, -1);
+                String[] properties = new String[4];
+
+                for (int i = 0; i < properties.length; i++) {
+                    properties[i] = values[i];
+                }
+                VendorData newV = new VendorData(properties[0], properties[1], properties[2], properties[3]);
+                vendorMap.put(properties[0], newV);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return vendorMap;
+    }
+
+
+    public Map<String, CompanyData> loadCompany() {
+
+
+        companyMap = new HashMap<>();
+        try {
+            br = new BufferedReader(new FileReader(companyCsv));
+            String line;
+            br.readLine();
+
+            while ((line = br.readLine()) != null) {
+
+                String[] values = line.split(DELIMITER, -1);
+
+                String[] properties = new String[8];
+
+                for (int i = 0; i < values.length; i++) {
+                    properties[i] = values[i];
+                }
+
+                CompanyData record = new CompanyData(properties[0],
+                        properties[1],
+                        properties[2],
+                        properties[3],
+                        properties[4],
+                        properties[5],
+                        properties[6],
+                        properties[7]
+                );
+                companyMap.put(properties[0], record);
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return companyMap;
+    }
+
+
+    public Map<String, VendorData> getVendorMap() {
+        return vendorMap;
+    }
+
+
+    public Map<String, CompanyData> getCompanyMap() {
+        return companyMap;
+    }
+
+
 }
